@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treino Circuito 001</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf9f6;
+    --ink:#1b1d1e;
+    --muted:#7a7d80;
+    --line:#e4e1d8;
+    --accent:#2f6e5b;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', system-ui, sans-serif;
+    min-height:100vh;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  .wrap{ max-width:560px; margin:0 auto; padding:48px 24px 80px; }
+
+  header{ margin-bottom:36px; }
+  header .kicker{
+    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--muted); margin-bottom:10px;
+  }
+  header h1{
+    font-size:28px; font-weight:700; margin:0 0 8px; letter-spacing:-0.01em;
+  }
+  header p{
+    margin:0; color:var(--muted); font-size:13.5px; line-height:1.5;
+  }
+
+  .tabs{
+    display:flex; gap:6px; margin:32px 0 36px;
+    border-bottom:1px solid var(--line);
+  }
+  .tab{
+    flex:1; text-align:center; padding:0 0 14px;
+    font-size:14px; font-weight:600; color:var(--muted);
+    background:none; border:none; cursor:pointer;
+    position:relative; font-family:'Inter', sans-serif;
+  }
+  .tab .letter{ display:block; font-size:20px; margin-bottom:2px; }
+  .tab .label{ display:block; font-size:10.5px; font-weight:500; text-transform:uppercase; letter-spacing:0.04em; }
+  .tab.active{ color:var(--ink); }
+  .tab.active::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--accent);
+  }
+
+  .panel{ display:none; }
+  .panel.active{ display:block; }
+
+  .workout-title{ font-size:20px; font-weight:700; margin:0 0 4px; }
+  .workout-sub{ color:var(--muted); font-size:13px; margin:0 0 32px; }
+
+  section.block{ margin-bottom:34px; }
+  .block-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    border-bottom:1px solid var(--line); padding-bottom:8px; margin-bottom:14px;
+  }
+  .block-head h2{
+    font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em;
+    margin:0; color:var(--ink);
+  }
+  .block-meta{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); }
+
+  ol.exlist{ list-style:none; margin:0; padding:0; }
+  ol.exlist li{
+    display:flex; align-items:baseline; gap:14px;
+    padding:10px 0; border-bottom:1px solid var(--line);
+  }
+  ol.exlist li:last-child{ border-bottom:none; }
+  .num{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted);
+    width:20px; flex:none;
+  }
+  .ex-name{ flex:1; font-size:14.5px; }
+  .ex-tag{ font-size:11.5px; color:var(--muted); flex:none; text-align:right; }
+
+  ul.simplist{ list-style:none; margin:0; padding:0; }
+  ul.simplist li{
+    display:flex; align-items:baseline; gap:14px;
+    padding:9px 0; border-bottom:1px solid var(--line); font-size:14px; color:var(--ink);
+  }
+  ul.simplist li:last-child{ border-bottom:none; }
+  ul.simplist .num{ color:var(--muted); }
+
+  footer{
+    margin-top:40px; padding-top:20px; border-top:1px solid var(--line);
+    font-size:12px; color:var(--muted); line-height:1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">Calistenia &amp; Funcional</div>
+    <h1>Treino Circuito 001</h1>
+    <p>Início 03/08 · ordem A → B → C → D · circuito de 3 voltas</p>
+  </header>
+
+  <nav class="tabs" id="tabs"></nav>
+
+  <div id="panels"></div>
+
+  <footer>
+    Aquecimento e desaquecimento não entram no circuito — são feitos uma única vez, no início e no fim da sessão. Reps indicadas são por volta (repita a cada uma das 3 voltas).
+  </footer>
+</div>
+
+<script>
+const WORKOUTS = {
+  A: {
+    name: 'Inferior 1',
+    sub: 'Quadríceps + Glúteo — hipertrofia',
+    warmup: [
+      'Mobilidade de quadril (90/90, agachamento profundo)',
+      'Abdução de quadril em pé com elástico (sem deslocamento) — 15 reps/lado',
+      'Ponte de glúteo ativação — 15 reps'
+    ],
+    principal: {
+      meta: '3 voltas · 90s descanso entre voltas',
+      items: [
+        ['Agachamento búlgaro (TRX/banco)','12x/lado · Quadríceps/Glúteo'],
+        ['Agachamento sumô com elástico','15x · Adutor/Glúteo'],
+        ['Elevação de perna reta com caneleira (deitado)','15x/lado · Quadríceps'],
+        ['Elevação pélvica unilateral com elástico','15x/lado · Glúteo'],
+        ['Afundo com pulso (embaixo)','12x/lado · Quadríceps/Glúteo'],
+        ['Cadeira na parede c/ elevação alternada de perna','20x (alternando) · Quadríceps']
+      ]
+    },
+    core: {
+      meta: '3 voltas · 45s descanso entre voltas',
+      items: [
+        ['Dead bug','12x/lado'],
+        ['Prancha com toque no ombro','16x (8/lado)'],
+        ['Elevação de pernas no espaldar','12x'],
+        ['Prancha lateral com rotação','10x/lado']
+      ]
+    },
+    cooldown: ['Alongamento de quadríceps', 'Alongamento de posterior de coxa', 'Alongamento de glúteo']
+  },
+  B: {
+    name: 'Superior 1',
+    sub: 'Empurrar vertical + Puxar horizontal',
+    warmup: [
+      'Esteira leve — 3 min',
+      'Rotação de ombro (interna/externa)',
+      'Mobilidade torácica com elástico',
+      'Ativação de manguito rotador com elástico — 15 reps'
+    ],
+    principal: {
+      meta: '3 voltas · 90s descanso entre voltas',
+      items: [
+        ['Desenvolvimento militar com elástico','12x · Deltoide'],
+        ['Remada TRX unilateral','12x/lado · Dorsal'],
+        ['Flexão com pés elevados no bloquinho','12x · Peitoral superior'],
+        ['Puxada alta no elástico (preso no espaldar)','12x · Dorsal'],
+        ['Elevação lateral com elástico','15x · Deltoide medial'],
+        ['Rosca martelo com elástico','12x · Bíceps/Antebraço']
+      ]
+    },
+    core: {
+      meta: '3 voltas · 45s descanso entre voltas',
+      items: [
+        ['Prancha com rotação (thread the needle)','12x/lado'],
+        ['Abdominal bicicleta','20x (10/lado)'],
+        ['Prancha com caminhada de mãos (walkout)','8x'],
+        ['Extensão lombar apoiada no espaldar','15x']
+      ]
+    },
+    cooldown: ['Alongamento de ombro', 'Alongamento de dorsal', 'Alongamento de peitoral']
+  },
+  C: {
+    name: 'Inferior 2',
+    sub: 'Glúteo + Quadríceps — hipertrofia',
+    warmup: [
+      'Mobilidade de tornozelo/quadril',
+      'Clamshell com elástico — 15 reps/lado',
+      'Glute bridge march ativação — 15 reps'
+    ],
+    principal: {
+      meta: '3 voltas · 90s descanso entre voltas',
+      items: [
+        ['Elevação pélvica bipodal + pausa 2s no topo','15x · Glúteo'],
+        ['Coice de glúteo (donkey kick) com caneleira','15x/lado · Glúteo máximo'],
+        ['Fire hydrant com caneleira','15x/lado · Glúteo médio'],
+        ['Agachamento com pulso duplo (pulse squat)','12x · Quadríceps'],
+        ['Step-up unilateral no bloquinho com caneleira','12x/lado · Glúteo/Quadríceps'],
+        ['Stiff unilateral com elástico','12x/lado · Posterior de coxa/Glúteo']
+      ]
+    },
+    core: {
+      meta: '3 voltas · 45s descanso entre voltas',
+      items: [
+        ['Hollow rocks','15x'],
+        ['Russian twist','20x (10/lado)'],
+        ['Prancha com elevação de perna alternada','16x (8/lado)'],
+        ['Bird-dog','12x/lado']
+      ]
+    },
+    cooldown: ['Alongamento de posterior de coxa', 'Alongamento de glúteo', 'Alongamento de panturrilha']
+  },
+  D: {
+    name: 'Superior 2',
+    sub: 'Puxar vertical + Empurrar horizontal',
+    warmup: [
+      'Esteira leve — 3 min',
+      'Pass-through com elástico',
+      'Ativação escapular (retração de ombro) — 15 reps',
+      'Rotação de punho e cotovelo'
+    ],
+    principal: {
+      meta: '3 voltas · 90s descanso entre voltas',
+      items: [
+        ['Puxada supinada no TRX','12x · Dorsal/Bíceps'],
+        ['Flexão ampla (wide push-up)','12x · Peitoral externo'],
+        ['Pullover com elástico','12x · Dorsal/Serrátil'],
+        ['Fundos no TRX (dips suspensos)','12x · Tríceps/Peitoral inferior'],
+        ['Face pull pegada larga','15x · Deltoide posterior'],
+        ['Rosca concentrada com elástico','12x/lado · Bíceps']
+      ]
+    },
+    core: {
+      meta: '3 voltas · 45s descanso entre voltas',
+      items: [
+        ['Prancha reversa com elevação de quadril','15x'],
+        ['V-up','15x'],
+        ['Prancha com toque cruzado','16x (8/lado)'],
+        ['Dead bug com elástico','12x/lado']
+      ]
+    },
+    cooldown: ['Alongamento de dorsal', 'Alongamento de tríceps', 'Alongamento de peitoral']
+  }
+};
+
+const LETTERS = ['A','B','C','D'];
+
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function buildList(items, ordered){
+  return `<${ordered ? 'ol class="exlist"' : 'ul class="simplist"'}>` +
+    items.map((it,i) => {
+      const label = Array.isArray(it) ? it[0] : it;
+      const tag = Array.isArray(it) ? it[1] : null;
+      return `<li><span class="num">${pad(i+1)}</span><span class="ex-name">${label}</span>${tag ? `<span class="ex-tag">${tag}</span>` : ''}</li>`;
+    }).join('') +
+    `</${ordered ? 'ol' : 'ul'}>`;
+}
+
+function renderPanel(letter){
+  const w = WORKOUTS[letter];
+  return `
+    <div class="panel" id="panel-${letter}">
+      <div class="workout-title">Treino ${letter} — ${w.name}</div>
+      <div class="workout-sub">${w.sub}</div>
+
+      <section class="block">
+        <div class="block-head"><h2>Aquecimento</h2></div>
+        ${buildList(w.warmup, false)}
+      </section>
+
+      <section class="block">
+        <div class="block-head"><h2>Bloco principal</h2><span class="block-meta">${w.principal.meta}</span></div>
+        ${buildList(w.principal.items, true)}
+      </section>
+
+      <section class="block">
+        <div class="block-head"><h2>Bloco core</h2><span class="block-meta">${w.core.meta}</span></div>
+        ${buildList(w.core.items, true)}
+      </section>
+
+      <section class="block">
+        <div class="block-head"><h2>Desaquecimento</h2></div>
+        ${buildList(w.cooldown, false)}
+      </section>
+    </div>
+  `;
+}
+
+function init(){
+  const tabsEl = document.getElementById('tabs');
+  const panelsEl = document.getElementById('panels');
+
+  tabsEl.innerHTML = LETTERS.map(l =>
+    `<button class="tab" data-letter="${l}"><span class="letter">${l}</span><span class="label">${WORKOUTS[l].name.replace('Superior ','Sup. ').replace('Inferior ','Inf. ')}</span></button>`
+  ).join('');
+
+  panelsEl.innerHTML = LETTERS.map(renderPanel).join('');
+
+  tabsEl.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => setActive(btn.dataset.letter));
+  });
+
+  setActive('A');
+}
+
+function setActive(letter){
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.letter === letter));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + letter));
+}
+
+init();
+</script>
+</body>
+</html>
