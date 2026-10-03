@@ -1,437 +1,54 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treino Circuito 002</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Circuito 003 · Outubro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#faf8f4;
-    --surface:#ffffff;
-    --line:#e7e2d9;
-    --ink:#1f1d1a;
-    --ink-muted:#8a8478;
-    --accent:#5b6b4f;
-    --accent-soft:#eef0e9;
-  }
-
-  *{box-sizing:border-box;}
-
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Inter',sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  .app{
-    max-width:480px;
-    margin:0 auto;
-    min-height:100vh;
-    background:var(--bg);
-    display:flex;
-    flex-direction:column;
-  }
-
-  header{
-    padding:28px 24px 20px;
-    border-bottom:1px solid var(--line);
-  }
-
-  header h1{
-    margin:0;
-    font-size:20px;
-    font-weight:600;
-    letter-spacing:0.01em;
-  }
-
-  header p.sub{
-    margin:4px 0 0;
-    font-size:13px;
-    color:var(--ink-muted);
-  }
-
-  header .equip{
-    margin-top:14px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    color:var(--ink-muted);
-    line-height:1.6;
-  }
-
-  nav.tabs{
-    display:flex;
-    border-bottom:1px solid var(--line);
-    background:var(--surface);
-    position:sticky;
-    top:0;
-    z-index:10;
-  }
-
-  nav.tabs button{
-    flex:1;
-    padding:14px 0;
-    background:none;
-    border:none;
-    font-family:'JetBrains Mono',monospace;
-    font-size:15px;
-    font-weight:500;
-    color:var(--ink-muted);
-    cursor:pointer;
-    border-bottom:2px solid transparent;
-  }
-
-  nav.tabs button.active{
-    color:var(--ink);
-    border-bottom:2px solid var(--accent);
-  }
-
-  main{
-    flex:1;
-    padding:8px 24px 48px;
-  }
-
-  section.day{
-    display:none;
-  }
-
-  section.day.active{
-    display:block;
-  }
-
-  .day-header{
-    padding:20px 0 16px;
-  }
-
-  .day-header .day-title{
-    font-size:19px;
-    font-weight:600;
-  }
-
-  .day-header .day-note{
-    font-size:13px;
-    color:var(--ink-muted);
-    margin-top:2px;
-  }
-
-  .block{
-    padding:18px 0;
-    border-top:1px solid var(--line);
-  }
-
-  .block-header{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    margin-bottom:12px;
-  }
-
-  .block-header .block-title{
-    font-size:15px;
-    font-weight:600;
-  }
-
-  .block-meta{
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    color:var(--ink-muted);
-    margin-bottom:14px;
-  }
-
-  ol.exercises{
-    list-style:none;
-    margin:0;
-    padding:0;
-    counter-reset:ex;
-  }
-
-  ol.exercises li{
-    counter-increment:ex;
-    padding:12px 0;
-    border-top:1px solid var(--line);
-    display:flex;
-    gap:12px;
-  }
-
-  ol.exercises li:first-child{
-    border-top:none;
-  }
-
-  ol.exercises li::before{
-    content:counter(ex);
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px;
-    color:var(--ink-muted);
-    width:16px;
-    flex-shrink:0;
-    padding-top:2px;
-  }
-
-  .ex-name{
-    font-size:14.5px;
-    font-weight:500;
-    margin:0 0 4px;
-  }
-
-  .ex-reps{
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px;
-    color:var(--accent);
-    display:block;
-  }
-
-  .ex-focus{
-    font-size:12px;
-    color:var(--ink-muted);
-    display:block;
-    margin-top:2px;
-  }
-
-  .flow-item{
-    padding:14px 0;
-    border-top:1px solid var(--line);
-  }
-
-  .flow-item:first-child{
-    border-top:none;
-  }
-
-  .flow-item .ex-name{
-    margin-bottom:2px;
-  }
+:root{--bg:#fdfcfa;--ink:#2a2a28;--mute:#9a988f;--line:#ecebe6}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+body{max-width:560px;margin:0 auto;padding:max(40px,env(safe-area-inset-top)) 24px max(56px,env(safe-area-inset-bottom))}
+h1{font-size:24px;font-weight:500;letter-spacing:-.02em;margin:0 0 6px}
+.sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mute);margin:0 0 36px;line-height:1.6}
+.ex{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.ex:last-child{border-bottom:1px solid var(--line)}
+.ex h2{font-size:16px;font-weight:400;margin:0}
+.tabata{border-bottom:1px solid var(--line)}
+.tabata .ex{border-bottom:0;padding-bottom:8px}
+.tabata .reps{white-space:normal;text-align:right;max-width:190px;line-height:1.5}
+.tabata ol{margin:0;padding:0 0 16px 20px;font-size:15px;line-height:1.9;color:var(--ink)}
+.tabata li::marker{color:var(--mute);font-family:'JetBrains Mono',monospace;font-size:12px}
+.reps{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mute);white-space:nowrap}
 </style>
 </head>
 <body>
+<h1>Circuito 003</h1>
+<p class="sub">Outubro, fullbody com ênfase em inferiores<br>3x por semana · 45 s entre séries · unilaterais: repetições por lado</p>
 
-<div class="app">
-
-  <header>
-    <h1>Treino Circuito 002</h1>
-    <p class="sub">Setembro</p>
-    <p class="equip">espaldar · elásticos · caneleira 1 e 2kg · bloquinhos</p>
-  </header>
-
-  <nav class="tabs">
-    <button data-day="a" class="active">A</button>
-    <button data-day="b">B</button>
-    <button data-day="c">C</button>
-    <button data-day="d">D</button>
-  </nav>
-
-  <main>
-
-    <!-- TREINO A -->
-    <section class="day active" id="day-a">
-      <div class="day-header">
-        <div class="day-title">Inferiores e Core</div>
-        <div class="day-note">Ênfase em glúteo e quadríceps</div>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Aquecimento</span></div>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Mobilidade de quadril no espaldar</p><span class="ex-reps">10 reps cada lado</span></div></li>
-          <li><div><p class="ex-name">Agachamento livre</p><span class="ex-reps">15 reps</span></div></li>
-          <li><div><p class="ex-name">Ponte de glúteo</p><span class="ex-reps">15 reps</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Bloco Principal</span></div>
-        <p class="block-meta">3 rounds, descanso de 90 segundos entre rounds</p>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Agachamento pistol</p><span class="ex-reps">6 a 8 reps por perna</span><span class="ex-focus">quadríceps, glúteo, equilíbrio</span></div></li>
-          <li><div><p class="ex-name">Afundo búlgaro com pé suspenso no TRX</p><span class="ex-reps">10 reps por perna</span><span class="ex-focus">glúteo, quadríceps</span></div></li>
-          <li><div><p class="ex-name">Elevação pélvica unilateral com elástico</p><span class="ex-reps">12 reps por perna</span><span class="ex-focus">glúteo</span></div></li>
-          <li><div><p class="ex-name">Cadeira isométrica na parede com elástico entre os joelhos</p><span class="ex-reps">sustentação de 40 segundos</span><span class="ex-focus">quadríceps, glúteo médio</span></div></li>
-          <li><div><p class="ex-name">Glúteo 4 apoios, abdução com elástico acima do joelho</p><span class="ex-reps">15 reps por perna</span><span class="ex-focus">glúteo médio</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Bloco Core</span></div>
-        <p class="block-meta">3 rounds, descanso de 45 segundos entre rounds</p>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Levantamento de perna no bloquinho, com caneleira de 1kg</p><span class="ex-reps">12 reps por perna</span><span class="ex-focus">glúteo máximo, core posterior</span></div></li>
-          <li><div><p class="ex-name">Abdominal V-up</p><span class="ex-reps">12 reps</span><span class="ex-focus">reto abdominal</span></div></li>
-          <li><div><p class="ex-name">Abdominal russian twist, segurando o bloquinho</p><span class="ex-reps">20 reps, 10 cada lado</span><span class="ex-focus">oblíquos</span></div></li>
-          <li><div><p class="ex-name">Prancha lateral com elevação de perna</p><span class="ex-reps">30 segundos cada lado</span><span class="ex-focus">oblíquos, glúteo médio</span></div></li>
-          <li><div><p class="ex-name">Adução de quadril deitado de lado, com caneleira de 1kg</p><span class="ex-reps">12 reps por perna</span><span class="ex-focus">adutores</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Volta à calma</span></div>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Alongamento de quadríceps no espaldar</p><span class="ex-reps">30 segundos cada lado</span></div></li>
-          <li><div><p class="ex-name">Alongamento de isquiotibiais</p><span class="ex-reps">30 segundos cada lado</span></div></li>
-          <li><div><p class="ex-name">Alongamento de glúteos</p><span class="ex-reps">30 segundos cada lado</span></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- TREINO B -->
-    <section class="day" id="day-b">
-      <div class="day-header">
-        <div class="day-title">Superiores e Core</div>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Aquecimento</span></div>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Rotação de ombro</p><span class="ex-reps">10 reps cada direção</span></div></li>
-          <li><div><p class="ex-name">Cachorro olhando para baixo no espaldar</p><span class="ex-reps">30 segundos</span></div></li>
-          <li><div><p class="ex-name">Ativação escapular com elástico</p><span class="ex-reps">15 reps</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Bloco Principal</span></div>
-        <p class="block-meta">3 rounds, descanso de 90 segundos entre rounds</p>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Flexão nas paralelas</p><span class="ex-reps">8 a 10 reps</span><span class="ex-focus">peito, tríceps</span></div></li>
-          <li><div><p class="ex-name">Remada com elástico</p><span class="ex-reps">12 reps</span><span class="ex-focus">dorsais</span></div></li>
-          <li><div><p class="ex-name">Desenvolvimento militar com elástico</p><span class="ex-reps">12 reps</span><span class="ex-focus">ombros</span></div></li>
-          <li><div><p class="ex-name">Rosca bíceps com elástico</p><span class="ex-reps">15 reps</span><span class="ex-focus">bíceps</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Bloco Core</span></div>
-        <p class="block-meta">3 rounds, descanso de 45 segundos entre rounds</p>
-        <ol class="exercises">
-          <li><div><p class="ex-name">L-sit nos bloquinhos</p><span class="ex-reps">sustentação de 15 a 20 segundos, 3 vezes</span><span class="ex-focus">core, flexores de quadril</span></div></li>
-          <li><div><p class="ex-name">Abdominal V-up</p><span class="ex-reps">12 reps</span><span class="ex-focus">reto abdominal</span></div></li>
-          <li><div><p class="ex-name">Abdominal russian twist, segurando o bloquinho</p><span class="ex-reps">20 reps, 10 cada lado</span><span class="ex-focus">oblíquos</span></div></li>
-          <li><div><p class="ex-name">Prancha com toque de ombro</p><span class="ex-reps">30 segundos</span><span class="ex-focus">core, estabilidade de ombro</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Volta à calma</span></div>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Alongamento peitoral no espaldar</p><span class="ex-reps">30 segundos</span></div></li>
-          <li><div><p class="ex-name">Alongamento de tríceps</p><span class="ex-reps">30 segundos cada lado</span></div></li>
-          <li><div><p class="ex-name">Alongamento de dorsais</p><span class="ex-reps">30 segundos</span></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- TREINO C -->
-    <section class="day" id="day-c">
-      <div class="day-header">
-        <div class="day-title">Fullbody</div>
-        <div class="day-note">Ênfase em inferiores</div>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Aquecimento</span></div>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Marcha leve no treadmill</p><span class="ex-reps">3 minutos</span></div></li>
-          <li><div><p class="ex-name">Mobilidade geral de tornozelo, quadril e ombro</p><span class="ex-reps">5 reps cada movimento</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Bloco Principal</span></div>
-        <p class="block-meta">3 rounds, descanso de 90 segundos entre rounds</p>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Agachamento com desenvolvimento, usando elástico</p><span class="ex-reps">10 a 12 reps</span><span class="ex-focus">quadríceps, glúteo, ombro</span></div></li>
-          <li><div><p class="ex-name">Afundo alternado com caneleira de 2kg</p><span class="ex-reps">10 reps por perna</span><span class="ex-focus">glúteo, quadríceps</span></div></li>
-          <li><div><p class="ex-name">Remada unilateral com elástico</p><span class="ex-reps">12 reps por lado</span><span class="ex-focus">dorsais, unilateral</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Bloco Core</span></div>
-        <p class="block-meta">3 rounds, descanso de 45 segundos entre rounds</p>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Levantamento de perna no bloquinho, com caneleira de 1kg</p><span class="ex-reps">12 reps por perna</span><span class="ex-focus">glúteo</span></div></li>
-          <li><div><p class="ex-name">Abdução de quadril em pé, apoio no espaldar, com caneleira de 1kg</p><span class="ex-reps">12 reps por perna</span><span class="ex-focus">glúteo médio, abdutores</span></div></li>
-          <li><div><p class="ex-name">Adução de quadril em pé, apoio no espaldar, com caneleira de 1kg</p><span class="ex-reps">12 reps por perna</span><span class="ex-focus">adutores</span></div></li>
-          <li><div><p class="ex-name">L-sit</p><span class="ex-reps">sustentação de 15 segundos, 3 vezes</span><span class="ex-focus">core</span></div></li>
-          <li><div><p class="ex-name">Abdominal V-up</p><span class="ex-reps">12 reps</span><span class="ex-focus">reto abdominal</span></div></li>
-          <li><div><p class="ex-name">Abdominal russian twist, segurando o bloquinho</p><span class="ex-reps">20 reps, 10 cada lado</span><span class="ex-focus">oblíquos</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Volta à calma</span></div>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Alongamento geral do corpo todo</p><span class="ex-reps">5 minutos</span></div></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- TREINO D -->
-    <section class="day" id="day-d">
-      <div class="day-header">
-        <div class="day-title">Flexibilidade e Mobilidade</div>
-        <div class="day-note">Progressão para cócoras, borboleta e ponte</div>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Cócoras</span></div>
-        <p class="block-meta">Mobilidade de tornozelo e quadril</p>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Mobilidade de tornozelo, joelho na parede</p><span class="ex-reps">10 reps cada lado</span></div></li>
-          <li><div><p class="ex-name">Alongamento de panturrilha no espaldar</p><span class="ex-reps">30 segundos cada lado</span></div></li>
-          <li><div><p class="ex-name">Agachamento profundo assistido, segurando no espaldar</p><span class="ex-reps">sustentação de 45 segundos a 1 minuto</span></div></li>
-          <li><div><p class="ex-name">Balanço lateral de quadril em cócoras</p><span class="ex-reps">10 reps cada lado</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Borboleta</span></div>
-        <p class="block-meta">Mobilidade de quadril e adutores</p>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Alongamento borboleta sentado, costas apoiadas no espaldar</p><span class="ex-reps">sustentação de 1 a 2 minutos</span></div></li>
-          <li><div><p class="ex-name">Contrai e relaxa nos joelhos</p><span class="ex-reps">5 séries de 5 segundos</span></div></li>
-          <li><div><p class="ex-name">Alongamento de rã</p><span class="ex-reps">sustentação de 45 segundos</span></div></li>
-          <li><div><p class="ex-name">Alongamento de adutor em afastamento lateral</p><span class="ex-reps">30 segundos cada lado</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Ponte</span></div>
-        <p class="block-meta">Mobilidade de ombro, tórax e quadril</p>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Extensão torácica sobre o bloquinho</p><span class="ex-reps">sustentação de 30 a 45 segundos</span></div></li>
-          <li><div><p class="ex-name">Alongamento de ombro no espaldar, braços elevados</p><span class="ex-reps">30 segundos</span></div></li>
-          <li><div><p class="ex-name">Alongamento de flexor de quadril, apoio no bloquinho</p><span class="ex-reps">30 segundos cada lado</span></div></li>
-          <li><div><p class="ex-name">Ponte de glúteo com braços estendidos acima da cabeça</p><span class="ex-reps">10 reps</span><span class="ex-focus">preparação de força para a ponte completa</span></div></li>
-          <li><div><p class="ex-name">Ponte assistida, mãos apoiadas na barra baixa do espaldar</p><span class="ex-reps">3 tentativas de 10 a 15 segundos</span></div></li>
-        </ol>
-      </div>
-
-      <div class="block">
-        <div class="block-header"><span class="block-title">Volta à calma</span></div>
-        <ol class="exercises">
-          <li><div><p class="ex-name">Respiração diafragmática deitado</p><span class="ex-reps">3 minutos</span></div></li>
-        </ol>
-      </div>
-    </section>
-
-  </main>
+<div class="ex"><h2>Agachamento pistol</h2><span class="reps">3x12</span></div>
+<div class="ex"><h2>Afundo com pé elevado</h2><span class="reps">3x12</span></div>
+<div class="ex"><h2>Agachamento sumô</h2><span class="reps">3x20</span></div>
+<div class="ex"><h2>Glúteo 4 apoios</h2><span class="reps">3x20</span></div>
+<div class="ex"><h2>Abdutor + adutor com caneleira</h2><span class="reps">3x20 · biset</span></div>
+<div class="ex"><h2>Elevação de perna no bloquinho</h2><span class="reps">3x20</span></div>
+<div class="ex"><h2>Elevação de ombros + bíceps martelo</h2><span class="reps">3x20 · biset</span></div>
+<div class="ex"><h2>Pike push-up + remada de costas no TRX</h2><span class="reps">3x8 · biset</span></div>
+<div class="tabata">
+  <div class="ex"><h2>Core em tabata</h2><span class="reps">3 rounds · 15 s por exercício · 10 s de descanso</span></div>
+  <ol>
+    <li>Elevação de pernas na barra</li>
+    <li>Abdominal remador</li>
+    <li>V-up</li>
+    <li>Hollow</li>
+  </ol>
 </div>
-
-<script>
-  const buttons = document.querySelectorAll('nav.tabs button');
-  const days = document.querySelectorAll('section.day');
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
-      days.forEach(d => d.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('day-' + btn.dataset.day).classList.add('active');
-    });
-  });
-</script>
-
 </body>
 </html>
+
+</body></html>
